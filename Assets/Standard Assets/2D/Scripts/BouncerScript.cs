@@ -21,9 +21,11 @@ public class BouncerScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        other.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
-
+        if (other.GetComponent<Rigidbody2D>().velocity.y < 0)
+        {
+            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            other.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounceFactor, ForceMode2D.Impulse);
+        }
         if (!hasSpawned)
         {
             spawner.SendMessage("Spawn");
